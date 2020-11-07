@@ -1,5 +1,5 @@
 """Blogly application."""
-from flask import Flask, request, redirect, session,render_template,url_for
+from flask import Flask, request, redirect, session, render_template, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 
@@ -51,5 +51,28 @@ def edit_page(user_id):
     """show edit form"""
     user = User.query.get_or_404(user_id)
     return render_template("edit.html", user=user)
+
+@app.route('/users/<int:user_id>/edit', methods=['POST'])
+def submit_update(user_id):
+    first=request.form["first"]
+    last=request.form["last"]
+    if len(url) == 0:
+        url = None
+    else:
+        url=request.form["url"]
+    user = User.query.get_or_404(user_id)
+    user.first_name = first
+    user.last_name = last
+    user.image_url = url
+    db.session.add(user)
+    db.session.commit()
+    return redirect('/users')
+
+@app.route('/users/<int:user_id>/delete')
+def delete_user(user_id):
+    user=User.query.filter_by(id=user_id).delete()
+    db.session.commit()
+
+    return redirect('/users')
 
 # db.create_all()

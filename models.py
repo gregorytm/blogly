@@ -31,7 +31,8 @@ class User(db.Model):
                         nullable=False, 
                         unique=True)
 
-    image_url = db.Column(db.String(150), 
-                        nullable=True, 
-                        unique=False)
+    image_url = db.Column(db.String(250), 
+                        nullable=False, 
+                        unique=False,
+                        default="https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60")
 

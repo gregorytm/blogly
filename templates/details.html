@@ -2,9 +2,9 @@
 
 {% block content %}
 <h1>{{user.first_name}} {{user.last_name}}</h1>
-<a href="{{ url_for('users_profile', user_id='user.id') }}">edit</a>
-<!-- <a href="/users/<int:user_id>/edit">Edit</a> -->
-<a href="/">Delete</a>
+<img src="{{user.image_url}}">
+<a href="/users/{{user.id}}/edit">Edit</a>
+<a href="/users/{{user.id}}/delete">Delete</a>
 
 <a href="/">Go Back</a>
 {% endblock %}
