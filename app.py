@@ -61,7 +61,13 @@ def submit_update(user_id):
     user = User.query.get_or_404(user_id)
     user.first_name = first
     user.last_name = last
-    user.image_url = url if len(url) >= 0 else 'https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+    url = user.image_url if url != None else 'https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+    # url = user.image_url if len(url) > 0 else None
+    # user.image_url = url if url != None else 'https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+    # if len(url) > 0:
+    #     user.image_url = url
+    # else:
+    #     user.image_url = None
 
     db.session.add(user)
     db.session.commit()
