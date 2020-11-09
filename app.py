@@ -56,14 +56,13 @@ def edit_page(user_id):
 def submit_update(user_id):
     first=request.form["first"]
     last=request.form["last"]
-    if len(url) == 0:
-        url = None
-    else:
-        url=request.form["url"]
+    url=request.form["url"]
+
     user = User.query.get_or_404(user_id)
     user.first_name = first
     user.last_name = last
-    user.image_url = url
+    user.image_url = url if len(url) >= 0 else 'https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+
     db.session.add(user)
     db.session.commit()
     return redirect('/users')
