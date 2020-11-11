@@ -1,6 +1,6 @@
 """seed file to populate db"""
 
-from models import User,db
+from models import User, Post, db
 from app import app
 
 # drop and create tables
@@ -9,6 +9,7 @@ db.create_all()
 
 # empty tables
 User.query.delete()
+Post.query.delete()
 
 # Add users
 gregory = User(first_name='Gregory', last_name='Marsh', image_url='https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60')
@@ -23,6 +24,22 @@ db.session.add(darcy)
 db.session.add(laurie)
 db.session.add(ryan)
 db.session.add(mark)
+
+# commit to the db to get saved
+db.session.commit()
+
+# Add posts
+post1 = Post(title='Breakfast', content='I like breakfast', user_id=1)
+post2 = Post(title='Na breakfast suxs', content='I like lunch bro', user_id=2)
+post3 = Post(title='Pics of Dogs', content='More pics of dogs', user_id=3)
+post4 = Post(title='Dr. Strange', content='STEVE!', user_id=4)
+post5 = Post(title='Wabba Lubba Dub Dub', content="Im simple rick!", user_id=5)
+
+db.session.add(post1)
+db.session.add(post2)
+db.session.add(post3)
+db.session.add(post4)
+db.session.add(post5)
 
 # commit to the db to get saved
 db.session.commit()
