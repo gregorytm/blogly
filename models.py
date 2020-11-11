@@ -1,3 +1,4 @@
+import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -19,20 +20,24 @@ class User(db.Model):
         return f"<User id={u.id} first name={u.first_name} last name = {u.last_name} pic = {u.image_url}>"
     """user"""
 
-    id = db.Column(db.Integer, 
-                 primary_key=True,
-                 autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.Text, nullable=False)
+    last_name = db.Column(db.Text, nullable=False)
+    image_url = db.Column(db.Text, nullable=False, default="https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60")
 
-    first_name = db.Column(db.String(50), 
-                          nullable=False, 
-                          unique=True)
+class Post(db.Model):
+    """Posts Model"""
+    __tablename__= 'posts'
 
-    last_name = db.Column(db.String(50), 
-                        nullable=False, 
-                        unique=True)
+    id=db.Column(db.Integer, primary_key=True)
+    title=db.Column(db.Text, nullable=False)
+    content=db.Column(db.Text, nullable=False)
+    created_at=db.Column(
+        db.DateTime,
+        nullable = False,
+        default=datetime.datetime.now)
+    user_id=db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    image_url = db.Column(db.String(250), 
-                        nullable=False, 
-                        unique=False,
-                        default="https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60")
-
+    @property
+    def friendly_date(self):
+        return self.created_at.strftime("%a %b %-d %Y, %-I:%M %p")
