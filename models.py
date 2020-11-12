@@ -10,10 +10,6 @@ def connect_db(app):
 """Models for Blogly."""
 class User(db.Model):
     __tablename__ = 'users'
-
-    @classmethod
-    def get_by_users(cls, first_name, last_name):
-        return cls.query.filter_by(first_name=first_name,last_name=last_name).all()
     
     def __repr__(self):
         u = self
