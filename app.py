@@ -16,7 +16,8 @@ connect_db(app)
 
 @app.route('/')
 def homepage():
-    return redirect('/users')
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template('posts/homepage.html', posts=posts)
 
 @app.route('/users')
 def list_users():
