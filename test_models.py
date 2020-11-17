@@ -22,10 +22,10 @@ class UserModelTestCase(TestCase):
         
     def test_user(self):
         Drewdog = User(first_name= "Nancy", last_name="Drew", url="https://i.pinimg.com/564x/3b/59/f5/3b59f5306f2492393cbd0ac00e28c2aa.jpg")
-        self.assertEqualsw(user.last_name, 'Drew')
+        self.assertEquals(user.last_name, 'Drew')
     
-    def test_delete(self):
+    def test_user_edit(self):
         Drewdog = User(first_name= "Nancy", last_name="Drew", url="https://i.pinimg.com/564x/3b/59/f5/3b59f5306f2492393cbd0ac00e28c2aa.jpg")
-        self.assertEqualsw(user.last_name, 'Drew')
+        user.image_url = "https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
 
-        User.query.filter_by(name=57)
+

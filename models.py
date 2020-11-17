@@ -3,10 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-def connect_db(app):
-    db.app = app
-    db.init_app(app)
-
 """Models for Blogly."""
 class User(db.Model):
     __tablename__ = 'users'
@@ -20,6 +16,13 @@ class User(db.Model):
     first_name = db.Column(db.Text, nullable=False)
     last_name = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.Text, nullable=False, default="https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60")
+
+    posts = db.relationship('Post', backref ="user", cascade ="all, delete-orphan")
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Post(db.Model):
     """Posts Model"""
@@ -37,3 +40,7 @@ class Post(db.Model):
     @property
     def friendly_date(self):
         return self.created_at.strftime("%a %b %-d %Y, %-I:%M %p")
+
+def connect_db(app):
+    db.app = app
+    db.init_app(app)
