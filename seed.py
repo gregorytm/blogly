@@ -1,6 +1,6 @@
 """seed file to populate db"""
 
-from models import User, Post, db
+from models import User, Post, Tag, PostTag, db
 from app import app
 
 # drop and create tables
@@ -42,4 +42,37 @@ db.session.add(post4)
 db.session.add(post5)
 
 # commit to the db to get saved
+db.session.commit()
+
+#add tags
+
+tag1 = Tag(name="Hey you")
+tag2 = Tag(name="Awesome")
+tag3 = Tag(name="LIke")
+tag4 = Tag(name="First post!")
+tag5 = Tag(name="wubba lubba dub dub")
+
+# add and commit
+db.session.add(tag1)
+db.session.add(tag2)
+db.session.add(tag3)
+db.session.add(tag4)
+db.session.add(tag5)
+
+db.session.commit()
+
+#PostTag model
+data1 = PostTag(post_id=1, tag_id=1)
+data2 = PostTag(post_id=2, tag_id=2)
+data3 = PostTag(post_id=3, tag_id=3)
+data4 = PostTag(post_id=4, tag_id=4)
+data5 = PostTag(post_id=5, tag_id=5)
+
+#add and commit
+db.session.add(data1)
+db.session.add(data2)
+db.session.add(data3)
+db.session.add(data4)
+db.session.add(data5)
+
 db.session.commit()
